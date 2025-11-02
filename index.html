@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAD GROUP - Arts And Sports Club</title>
+    <!-- 1. Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Custom Tailwind Configuration (for 'Inter' font) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': {
+                            '500': '#6366F1', // Indigo 500
+                            '600': '#4F46E5', // Indigo 600
+                            '700': '#4338CA', // Indigo 700
+                        },
+                        'dark': {
+                            '800': '#1F2937', // Gray 800
+                            '900': '#111827', // Gray 900
+                        }
+                    },
+                    minHeight: {
+                        'screen-75': '75vh',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- 3. Internal CSS Styles -->
+    <style>
+        /* Custom class for the active nav link */
+        .nav-link-active {
+            color: #4F46E5; /* text-primary-600 */
+            font-weight: 600;
+        }
+        /* Custom class for smooth scroll offset */
+        :target {
+            scroll-margin-top: 80px; /* Adjust this value to match header height */
+        }
+        
+        /* Custom class for active filter button (Members) */
+        .filter-btn-active {
+            background-color: #4F46E5; /* bg-primary-600 */
+            color: white;
+        }
+        .filter-btn-inactive {
+            background-color: #E5E7EB; /* bg-gray-200 */
+            color: #374151; /* text-gray-700 */
+        }
+        .filter-btn-inactive:hover {
+            background-color: #D1D5DB; /* hover:bg-gray-300 */
+        }
+
+        /* NEW: Custom classes for active event filter buttons */
+        .event-btn-active {
+            background-color: #4F46E5; /* bg-primary-600 */
+            color: white;
+        }
+        .event-btn-inactive {
+            background-color: #E5E7EB; /* bg-gray-200 */
+            color: #374151; /* text-gray-700 */
+        }
+        .event-btn-inactive:hover {
+            background-color: #D1D5DB; /* hover:bg-gray-300 */
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+    <!-- ========== HEADER & NAVIGATION ========== -->
+    <header class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- 1. Club Logo/Name -->
+                <!-- CORRECTION: Closed <a> tag and resized <img> with Tailwind classes -->
+                <a href="#home" class="flex items-center space-x-2">
+  <img 
+    src="images/FURY AND DARE.png" 
+    alt="Fury and Dare Logo" 
+    class="h-26 w-auto" 
+    onerror="this.alt='FAD Group Logo'; this.src='https://placehold.co/200x80/FFFFFF/4F46E5?text=FAD+Group&font=inter';">
+</a>
+                
+                <!-- 2. Desktop Navigation -->
+                <div class="hidden md:flex space-x-6 lg:space-x-8 items-center">
+                    <a href="#home" class="text-gray-600 hover:text-primary-600 transition-colors nav-link">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-primary-600 transition-colors nav-link">About</a>
+                    <a href="#members" class="text-gray-600 hover:text-primary-600 transition-colors nav-link">Members</a>
+                    <a href="#events" class="text-gray-600 hover:text-primary-600 transition-colors nav-link">Events</a>
+                    <a href="#gallery" class="text-gray-600 hover:text-primary-600 transition-colors nav-link">Gallery</a>
+                    <a href="#projects" class="text-gray-600 hover:text-primary-600 transition-colors nav-link">Projects</a>
+                    <a href="#news" class="text-gray-600 hover:text-primary-600 transition-colors nav-link">News</a>
+                    <a href="#contact" class="text-gray-600 hover:text-primary-600 transition-colors nav-link">Contact</a>
+                    <a href="#join" class="ml-4 px-5 py-2.5 bg-primary-600 text-white font-medium rounded-lg shadow-md hover:bg-primary-700 transition-all">
+                        Join Now
+                    </a>
+                </div>
+                
+                <!-- 3. Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-primary-600 focus:outline-none">
+                        <!-- Hamburger Icon -->
+                        <svg id="menu-icon-open" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                        <!-- Close Icon (Hidden by default) -->
+                        <svg id="menu-icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 4. Mobile Menu (Hidden by default) -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="#home" class="block py-2 px-3 text-base text-gray-700 hover:bg-gray-100 rounded-md nav-link-mobile">Home</a>
+                <a href="#about" class="block py-2 px-3 text-base text-gray-700 hover:bg-gray-100 rounded-md nav-link-mobile">About</a>
+                <a href="#members" class="block py-2 px-3 text-base text-gray-700 hover:bg-gray-100 rounded-md nav-link-mobile">Members</a>
+                <a href="#events" class="block py-2 px-3 text-base text-gray-700 hover:bg-gray-100 rounded-md nav-link-mobile">Events</a>
+                <a href="#gallery" class="block py-2 px-3 text-base text-gray-700 hover:bg-gray-100 rounded-md nav-link-mobile">Gallery</a>
+                <a href="#projects" class="block py-2 px-3 text-base text-gray-700 hover:bg-gray-100 rounded-md nav-link-mobile">Projects</a>
+                <a href="#news" class="block py-2 px-3 text-base text-gray-700 hover:bg-gray-100 rounded-md nav-link-mobile">News</a>
+                <a href="#contact" class="block py-2 px-3 text-base text-gray-700 hover:bg-gray-100 rounded-md nav-link-mobile">Contact</a>
+                <a href="#join" class="block w-full text-center mt-3 px-5 py-2.5 bg-primary-600 text-white font-medium rounded-lg shadow-md hover:bg-primary-700 transition-all nav-link-mobile">
+                    Join Now
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-20"> <!-- Padding to offset the fixed header -->
+
+        <!-- ========== 1. HOME (HERO) ========== -->
+        <section id="home" class="relative min-h-screen-75 lg:min-h-screen flex items-center justify-center text-center text-white px-4">
+            <!-- Background Image -->
+            <div class="absolute inset-0">
+                <!-- CORRECTION: Added onerror placeholder -->
+                <img src="images/HOME.png" alt="Hero Banner" class="w-full h-full object-cover" onerror="this.alt='FAD Group Event'; this.src='https://placehold.co/1920x1080/1F2937/FFFFFF?text=FAD+Group&font=inter';">
+                <!-- <div class="absolute inset-0 bg-black/60"></div> --> <!-- Dark overlay REMOVED -->
+            </div>
+        </section>
+            
+        <!-- Hero Content (Intentionally commented out as per user's code) -->
+        <!-- <div class="relative z-10 flex flex-col items-center"> -->
+            <!-- <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-4">
+                FAD GROUP
+            </h1> -->
+            <!-- <p class="text-xl sm:text-2xl md:text-3xl font-light mb-8 max-w-3xl">
+                Arts & Sports Club
+            </p> -->
+            <!-- <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#join" class="px-8 py-3 bg-primary-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-primary-700 transition-all">
+                    Join Now
+                </a>
+                <a href="#contact" class="px-8 py-3 bg-white text-gray-900 text-lg font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition-all">
+                    Contact Us
+                </a>
+            </div> -->
+    
+
+        <!-- ========== HIGHLIGHTED EVENT (Under Hero) ========== -->
+        <section class="bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+                <div class="flex flex-col lg:flex-row items-center bg-gray-50 rounded-xl shadow-lg overflow-hidden">
+                    <div class="w-full lg:w-1/2">
+                        <!-- CORRECTION: Added onerror placeholder -->
+                        <img src="images/free palestine.png" alt="Free Palestine" class="w-full h-full object-cover" onerror="this.alt='Free Palestine'; this.src='https://placehold.co/800x600/EEEEEE/1F2937?text=Free+Palestine&font=inter';">
+                    </div>
+                    <div class="w-full lg:w-1/2 p-8 md:p-12">
+                        <!-- <span class="text-primary-600 font-semibold uppercase tracking-wider">Latest News</span> -->
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">
+                            Free Palestine
+                        </h2>
+                        <p class="text-lg text-gray-600 mb-6">
+                            With love and solidarity, FAD Group stands beside the people of Palestine.
+                            Their pain is the world’s pain — and their hope is our hope.
+                            May peace, dignity, and freedom prevail.
+                        </p>
+                        <!-- <p class="text-gray-500 mb-6">
+                            <strong class="text-gray-700">Date:</strong> January 16, 2026<br>
+                            <strong class="text-gray-700">Location:</strong> Main University Auditorium
+                        </p> -->
+                        <!-- <a href="#events" class="inline-block px-6 py-3 bg-primary-600 text-white font-medium rounded-lg shadow-md hover:bg-primary-700 transition-all">
+                            Learn More
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 2. ABOUT US ========== -->
+        <section id="about" class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                        🌟 About FAD Group Arts & Sports Club, Perumbaipadi
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Founded in 2013, The FAD Group Arts & Sports Club is a vibrant youth organization based in Paluvai, formed by the energetic and passionate boys of Perumbaipadi Street. What began as a small circle of friends driven by emotion, unity, and friendship has now grown into a strong community of 80+ dedicated members.
+
+                        The FAD Group is known for its social work, cultural programs, and sports activities, contributing positively to the development of the Paluvai area. Our members actively participate in community service, local events, and youth empowerment initiatives, standing together as a symbol of team spirit, creativity, and social responsibility.
+                    </p>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                        🎯 Our Mission
+                    </h3>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Our mission is to create a platform where young minds can explore their passions, collaborate on meaningful projects, and develop skills in the fields of arts, media, Sports and social work.
+We strive to build a strong bond among the people of Paluvai, nurturing unity, creativity, and mutual support through every activity and initiative we take on.
+                    </p>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                        🏛️ Club Structure
+                    </h3>
+                    <ul class="list-disc list-inside text-lg text-gray-600 space-y-2">
+                        <li><strong>🎨 Arts Department:</strong> Fosters creativity through visual and performing arts, encouraging members to express ideas and emotions through various art forms.</li>
+                        <li><strong>📸 Media Department:</strong> Handles videography, photography, and content creation, capturing the essence of every club event and promoting our activities through digital media.</li>
+                        <li><strong>🎪 social Department:</strong> Plans, organizes, and executes all club programs, festivals, and community initiatives, ensuring smooth coordination and participation.</li>
+                        <li><strong>🏆 Sports Department:</strong> Promotes sportsmanship, physical fitness, and teamwork, organizing tournaments and activities that unite members through healthy competition.</li>
+                    </ul>
+                </div>
+                <!-- Achievements / Stats -->
+                <div class="grid grid-cols-2 gap-6 text-center">
+                    <div class="bg-primary-600 text-white p-8 rounded-xl shadow-lg">
+                        <span class="text-5xl font-bold">30+</span>
+                        <span class="block text-xl mt-2">Events Hosted</span>
+                    </div>
+                    <div class="bg-gray-800 text-white p-8 rounded-xl shadow-lg">
+                        <span class="text-5xl font-bold">80+</span>
+                        <span class="block text-xl mt-2">Active Members</span>
+                    </div>
+                    <div class="bg-gray-800 text-white p-8 rounded-xl shadow-lg">
+                        <span class="text-5xl font-bold">5+</span>
+                        <span class="block text-xl mt-2">Projects Done</span>
+                    </div>
+                    <div class="bg-primary-600 text-white p-8 rounded-xl shadow-lg">
+                        <span class="text-5xl font-bold">10+</span>
+                        <span class="block text-xl mt-2">Awards Won</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 3. MEMBERS (MODIFIED) ========== -->
+        <section id="members" class="py-16 lg:py-24 bg-gray-50 px-4 sm:px-6 lg:px-8">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">
+                    Meet The Team
+                </h2>
+
+                <!-- NEW: Filter Buttons -->
+                <div class="flex justify-center space-x-4 mb-10">
+                    <button id="all-btn" class="px-6 py-2 rounded-full font-semibold text-lg transition-colors duration-200">All</button>
+                    <button id="exec-btn" class="px-6 py-2 rounded-full font-semibold text-lg transition-colors duration-200">Executive</button>
+                    <button id="members-btn" class="px-6 py-2 rounded-full font-semibold text-lg transition-colors duration-200">Members</button>
+                </div>
+                
+                <!-- CORRECTION: Changed all `\` to `/` in src paths and added onerror placeholders -->
+                <div id="executive-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/sxdq.png" alt="President" class="w-full h-80 object-cover" onerror="this.alt='President'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=President&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Mohammed Swadique</h4>
+                            <p class="text-primary-600 font-semibold mb-2">President</p>
+                            <p class="text-gray-600 text-sm">"Leading the charge toward a more creative and united future for FAD Group."</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/zumail.png" alt="Secretary" class="w-full h-80 object-cover" onerror="this.alt='Secretary'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Secretary&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Zumail</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Secretary</p>
+                            <p class="text-gray-600 text-sm">"Organizing ideas into action. Turning plans into progress."</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/shafi.png" alt="Treasurer" class="w-full h-80 object-cover" onerror="this.alt='Treasurer'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Treasurer&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Mohammed Shafi</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Treasurer</p>
+                            <p class="text-gray-600 text-sm">"Fueling our projects, one budget at a time."</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/salih.png" alt="Sports Coordinator" class="w-full h-80 object-cover" onerror="this.alt='Sports Coordinator'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Sports+Coordinator&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Mohammed Swalih</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Sports Coordinator</p>
+                            <p class="text-gray-600 text-sm">"Encouraging every member to play, grow, and win — on and off the field."</p>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/fadhil.png" alt="Media Head" class="w-full h-80 object-cover" onerror="this.alt='Media Head'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Media+Head&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Mohammed Fadhil</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Media Head</p>
+                            <p class="text-gray-600 text-sm">"Capturing our moments and sharing our story with the world."</p>
+                        </div>
+                    </div>
+                    <!-- Card 6 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/zamil.png" alt="Vice President" class="w-full h-80 object-cover" onerror="this.alt='Vice President'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Vice+President&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Zamil</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Vice President</p>
+                            <p class="text-gray-600 text-sm">"Supporting the vision and empowering our teams."</p>
+                        </div>
+                    </div>
+                    <!-- Card 7 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/sahad.png" alt="Joint Secretary" class="w-full h-80 object-cover" onerror="this.alt='Joint Secretary'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Joint+Secretary&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Sahad</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Joint Secretary</p>
+                            <p class="text-gray-600 text-sm">"Ensuring all parts of the club work in harmony."</p>
+                        </div>
+                    </div>
+                    <!-- Card 8 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/anz.png" alt="Assistant Treasurer" class="w-full h-80 object-cover" onerror="this.alt='Assistant Treasurer'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Assistant+Treasurer&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Mohammed Anas</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Assistant Treasurer</p>
+                            <p class="text-gray-600 text-sm">"Managing the funds that bring our ideas to life."</p>
+                        </div>
+                    </div>
+                    <!-- Card 9 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/bibin.png" alt="Arts Coordinator" class="w-full h-80 object-cover" onerror="this.alt='Arts Coordinator'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Arts+Coordinator&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Bibin</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Arts Coordinator</p>
+                            <p class="text-gray-600 text-sm">"Bringing color and creativity to every event."</p>
+                        </div>
+                    </div>
+                    <!-- Card 10 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/salman.png" alt="Media Assistant" class="w-full h-80 object-cover" onerror="this.alt='Media Assistant'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Media+Assistant&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Salman</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Media Assistant</p>
+                            <p class="text-gray-600 text-sm">"Assisting our media head in crafting our digital presence."</p>
+                        </div>
+                    </div>
+                    <!-- Card 11 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/anask.png" alt="Mentor" class="w-full h-80 object-cover" onerror="this.alt='Mentor'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Mentor&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Anas</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Mentor</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable guidance and support."</p>
+                        </div>
+                    </div>
+                    <!-- Card 12 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/abu.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Abu Sidheeq</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 13 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/dnf.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Dhanif Basheer</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 14 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/savu.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Savad</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 15 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/thahsin.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Thahsin</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 16 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/junu.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Mohammed Junaid</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 17 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/bidhu.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Bidhul</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 18 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/faizan.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Faizan</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 19 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/ayaz.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Ayaz</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 20 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/ajzal.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Ajzal</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 21 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/intuo.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">safwan</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 22 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/Nachu.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Nasib</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                    <!-- Card 23 -->
+                    <div class="bg-white rounded-lg shadow-xl overflow-hidden text-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="mem.images/Ashkar.png" alt="Executive Member" class="w-full h-80 object-cover" onerror="this.alt='Executive'; this.src='https://placehold.co/600x800/1F2937/FFFFFF?text=Executive&font=inter';">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900">Ashkar</h4>
+                            <p class="text-primary-600 font-semibold mb-2">Executive</p>
+                            <p class="text-gray-600 text-sm">"Providing valuable support to the main committee."</p>
+                        </div>
+                    </div>
+                </div> <!-- End of executive-grid -->
+
+
+                <!-- MODIFIED: Active Members (80 Placeholders) -->
+                <!-- CORRECTION: Changed all `\` to `/` in src paths and added onerror placeholders -->
+                <div id="members-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <!-- 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/Arif.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Arif</p>
+                        <p class="text-sm text-gray-500">Member</p>
+                    </div>
+                    <!-- 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/farzu.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Farseen</p>
+                        <p class="text-sm text-gray-500"> Member</p>
+                    </div>
+                    <!-- 3 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/shemmoto.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Shameem</p>
+                        <p class="text-sm text-gray-500">Member</p>
+                    </div>
+                    <!-- 4 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/kilu.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Kilu</p>
+                        <p class="text-sm text-gray-500">Member</p>
+                    </div>
+                    <!-- 5 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/musi.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Musi</p>
+                        <p class="text-sm text-gray-500">Member</p>
+                    </div>
+                    <!-- 6 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/shaheemon.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Shehin</p>
+                        <p class="text-sm text-gray-500">Member</p>
+                    </div>
+                    <!-- 7 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/ajmalkochu.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Ajmal Kochu</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 8 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/Hanees.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Hanees</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 9 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/Azlu.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Aslam</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 10 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/noufal.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Noufal</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 11 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/KANNAN.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Roshan Kannan</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 12 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/SAT.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">shafaf</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 13 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/DHIJIL.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Dhijil</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 14 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/NIJIL.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">nejil</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 15 (Commented out) -->
+                    <!-- <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=Member" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover">
+                        <p class="font-semibold">Ajmal chavakkad</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div> -->
+                    <!-- 16 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/popie.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">poopi</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 17 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/aslam.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Aslam momz</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 18 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/ajamalrosh.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Ajmal Roshan</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 19 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="https" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='Ramees'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=Ramees';">
+                        <p class="font-semibold">Ramees</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 20 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/dhilshad.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Dhilshad</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 21 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/ajamala.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Ajmal</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 22 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/rashik.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Rashik</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 23 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/siru.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Siraj</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 24 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/Faru.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Farhath hameed</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 25 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/fahad.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Fahad</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 26 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/razi.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Razik</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 27 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/shaibu.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Shaibu</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 28 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/ajus.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Ajmal shamsudheen</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 29 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/abi.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Abi</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 30 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/malik.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Malik</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 31 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/shahid.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Shahid</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 32 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/hisham.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Hisham</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 33 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/swalih.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">swalih</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 34 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/sirajj.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Siraj</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 35 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/shaheenm.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Shaheen</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 36 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/fanu.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Fanu</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 37 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/niham.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Niham</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 38 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/musii.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Musi</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 39 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/ashiq.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Ashiq</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 40 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/sahal.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Sahal</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 41 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/kamil.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Kamil</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 42 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/siyan.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Siyan</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 43 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/asmal.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Asmal</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 44 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/karthik.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Karthik</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 45 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/afthab.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Afthab</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 46 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/sinans.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">sinan</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 47 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/rouf.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Rouf</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 48 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/rafi.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Rafi</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 49 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/sinan.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">sinan vc</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 50 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/sulthan.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">sulthan</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 51 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/sinuuu.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Sinan</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 51 (Duplicate 51) -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/amall.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Amal</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 52 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/arun.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Arun</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 53 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/amal.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Amal</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 54 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/rainu.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Rainu</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 55 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/sahalvc.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">sahal</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 56 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="https" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='Badhu'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=Badhu';">
+                        <p class="font-semibold">Badhu</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 57 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/shamon.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">shamon</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 58 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/nachuss.jpeg" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Nachu</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 59 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="https" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='Pachu'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=Pachu';">
+                        <p class="font-semibold">Pachu</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 60 (Commented out) -->
+                    <!-- <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=Member" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover">
+                        <p class="font-semibold">Raihnu</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div> -->
+                    <!-- 61 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="https" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='Shifan'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=Shifan';">
+                        <p class="font-semibold">Shifan</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 62 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="https" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='Amal Kuraish'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=Amal+Kuraish';">
+                        <p class="font-semibold">Amal kuraish</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 63 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="mem.images/kk.png" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='FAD Member'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=FAD';">
+                        <p class="font-semibold">Hamdhan</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 64 -->
+                    <div class="bg-white p-4 rounded-lg shadow-md text-center flex flex-col items-center">
+                        <img src="https" alt="FAD Member" class="w-20 h-20 rounded-full mb-3 object-cover" onerror="this.alt='Faizan'; this.src='https://placehold.co/100x100/E0E7FF/4F46E5?text=Faizan';">
+                        <p class="font-semibold">Faizan</p>
+                        <p class="text-sm text-gray-500">Active Member</p>
+                    </div>
+                    <!-- 65-80 (Commented out as per user's code) -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- ========== 4. ACTIVITIES / EVENTS ========== -->
+        <section id="events" class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 container mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">
+                Activities & Events
+            </h2>
+            
+            <!-- Event Tabs/Filters -->
+            <div class="flex justify-center space-x-4 mb-10">
+                <button id="upcoming-btn" class="px-6 py-2 rounded-full font-semibold text-lg transition-colors duration-200">Upcoming</button>
+                <button id="past-btn" class="px-6 py-2 rounded-full font-semibold text-lg transition-colors duration-200">Past</button>
+            </div>
+            
+            <!-- Event Grid -->
+            <!-- CORRECTION: Changed all `\` to `/` in src paths and added onerror placeholders -->
+            <div id="events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Event Card 1 (Upcoming) -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col" data-category="upcoming">
+                    <img src="images/fad fest.jpeg" alt="Event" class="w-full h-56 object-cover" onerror="this.alt='FAD Fest'; this.src='https://placehold.co/600x400/1F2937/FFFFFF?text=FAD+Fest+2026&font=inter';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <span class="text-sm text-primary-600 font-semibold">Jan 15, 2026 | Fad Fest 2026</span>
+                        <h3 class="text-2xl font-bold text-gray-900 mt-2 mb-3">Chandharthi Chandhanakudam Nercha</h3>
+                        <p class="text-gray-600 mb-4 flex-grow">Coming Soon — Get Ready to Enjoy the Biggest Night of 2026!</p>
+                        <!-- <a href="#" class="inline-block text-center px-5 py-2.5 bg-primary-600 text-white font-medium rounded-lg shadow-md hover:bg-primary-700 transition-all">
+                            Register Now
+                        </a> -->
+                    </div>
+                </div>
+                <!-- Event Card 2 (Past) -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col opacity-80" data-category="past">
+                    <img src="images/CLEAN.jpeg" alt="Event" class="w-full h-56 object-cover" onerror="this.alt='School Cleaning'; this.src='https://placehold.co/600x400/EEEEEE/1F2937?text=School+Cleaning&font=inter';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <span class="text-sm text-gray-500 font-semibold">june 27, 2021 | Cultural Fest</span>
+                        <h3 class="text-2xl font-bold text-gray-900 mt-2 mb-3">എന്‍റെ വിദ്യാലയം, എന്‍റെ അഭിമാനം ✨</h3>
+                        <p class="text-gray-600 mb-4 flex-grow">During the COVID days, since the school remained closed for several months, FAD members planned a cleaning drive to restore its beauty.</p>
+                        <!-- <a href="#gallery" class="inline-block text-center px-5 py-2.5 bg-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-400 transition-all">
+                            View Gallery
+                        </a> -->
+                    </div>
+                </div>
+                <!-- Event Card 3 (Past) -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col opacity-80" data-category="past">
+                    <img src="images/blood.jpeg" alt="Event" class="w-full h-56 object-cover" onerror="this.alt='Blood Donation'; this.src='https://placehold.co/600x400/EEEEEE/1F2937?text=Blood+Donation&font=inter';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <span class="text-sm text-gray-500 font-semibold">july 05, 2021 | Camp</span>
+                        <h3 class="text-2xl font-bold text-gray-900 mt-2 mb-3">Blood Donation Camp</h3>
+                        <p class="text-gray-600 mb-4 flex-grow">Blood donation camp was organized by FAD members to raise awareness about the importance of blood donation.</p>
+                        <!-- <a href="#projects" class="inline-block text-center px-5 py-2.5 bg-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-400 transition-all">
+                            See Winners
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ========== 5. GALLERY / MEDIA ========== -->
+        <section id="gallery" class="py-16 lg:py-24 bg-gray-50 px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">
+                Gallery
+            </h2>
+            <!-- CORRECTION: Changed all `\` to `/` in src paths and added onerror placeholders -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="grid gap-4">
+                    <div>
+                        <a href="https://www.instagram.com/p/DOQYef7gdh_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/groupies.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x700/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.instagram.com/p/Bhl6BfplgNd/" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/old peop.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x500/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.instagram.com/p/CdIzGWFPuyS/" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/2team.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x600/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                </div>
+                <div class="grid gap-4">
+                    <div>
+                        <a href="https://www.instagram.com/p/C-rr1Ucvhf7/" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/teamsss.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x600/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.instagram.com/p/DOQJAaPEhJ7/" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/aniyanssssssss.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x700/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.instagram.com/stories/highlights/18035584196113576/" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/innua.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x500/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                </div>
+                <div class="grid gap-4">
+                    <div>
+                        <a href="https://www.instagram.com/p/Bm06V2PlNvo/" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/brother.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x500/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.instagram.com/p/C2FPygVvXEq/?img_index=1" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/uffpow.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x700/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.instagram.com/p/CgaE7jDPnQr/" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/grouppii.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x600/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                </div>
+                <div class="grid gap-4">
+                    <div>
+                        <a href="https://www.instagram.com/p/CANvK0pnfNk/" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/nagarpower.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x600/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.instagram.com/p/BgLnNcXFw5g/" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/logoo.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x500/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.instagram.com/p/DFAZf-IPCey/" target="_blank" rel="noopener noreferrer">
+                            <img class="h-auto max-w-full rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" src="images/fadies.jpeg" alt="Gallery Image" onerror="this.alt='Gallery Image'; this.src='https://placehold.co/500x700/EEEEEE/1F2937?text=FAD+Group&font=inter';">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- ========== 7. ANNOUNCEMENTS / NEWS ========== -->
+        <section id="news" class="py-16 lg:py-24 bg-gray-50 px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">
+                Announcements
+            </h2>
+            <div class="max-w-3xl mx-auto space-y-6">
+
+                <div class="max-w-3xl mx-auto text-center">
+                    <div class="bg-white p-6 rounded-lg shadow text-gray-600">
+                        <p>No announcements at the moment. Stay tuned for updates!</p>
+                    </div>
+                </div>
+                <!-- Announcement 1 (Commented out) -->
+                <!-- <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-sm text-gray-500 mb-1">October 24, 2025</p>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Member Auditions: Spring 2026</h3>
+                    <p class="text-gray-600 mb-4">
+                        We're looking for new talent! Auditions for all departments will be held in the first week of January. Prepare your portfolios and passion!
+                    </p>
+                    <a href="#join" class="font-semibold text-primary-600 hover:text-primary-700">Learn More &raquo;</a>
+                </div> -->
+                <!-- ... other commented out announcements ... -->
+            </div>
+        </section>
+
+        <!-- ========== 8. JOIN US / MEMBERSHIP ========== -->
+        <section id="join" class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 text-center bg-primary-600 text-white">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold mb-6">
+                    Become a FAD Member
+                </h2>
+                <p class="text-xl max-w-3xl mx-auto mb-8 text-indigo-100">
+                    Ready to create, collaborate, and be part of our culture? Joining is easy. Get access to exclusive workshops, events, and a network of creative peers.
+                </p>
+                <a href="https://forms.gle/n32Eob4GGydjhhVf8" target="_blank" class="inline-block px-10 py-4 bg-white text-primary-600 text-lg font-bold rounded-lg shadow-xl hover:bg-gray-100 transition-all transform hover:scale-105">
+                    Fill Out The Membership Form
+                </a>
+                
+                <div class="max-w-4xl mx-auto text-left mt-16 bg-primary-700/50 p-8 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-center">Eligibility & Rules</h3>
+                    <ul class="list-disc list-inside space-y-2 text-indigo-50">
+                        <li>Members are expected to actively participate in at least one department.</li>
+                        <li>Respect for all members and ideas is mandatory.</li>
+                        <li>Attend at least 70% of general body meetings.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+<!-- ========== 9. CONTACT US ========== -->
+<!-- CORRECTION: Fixed layout. Form and Info are now side-by-side in the grid. -->
+<section id="contact" class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+  <h2 class="text-4xl font-bold text-center text-gray-900 mb-6">
+    Get In Touch
+  </h2>
+  <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">
+    If you have any enquiries, suggestions, or issues related to our place or events, feel free to reach out to us.
+    Your response will remain confidential, and we truly value your feedback.
+    We’re always here for you — <strong>FAD Group Arts & Sports Club, Perumbaipadi.</strong>
+  </p>
+
+  <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+    <!-- Contact Form -->
+    <form id="contactForm" action="https://formspree.io/f/xdkpydoq" method="POST" class="bg-white p-8 rounded-lg shadow-lg space-y-6">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
+          placeholder="Your Name"
+          required
+        >
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
+          placeholder="you@example.com"
+          required
+        >
+      </div>
+
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
+          placeholder="Your Phone Number"
+          required
+        >
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
+          placeholder="Your message..."
+          required
+        ></textarea>
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          class="w-full px-6 py-3 bg-primary-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-primary-700 transition-all"
+        >
+          Send Message
+        </button>
+      </div>
+
+      <!-- CORRECTION: Updated form status to handle errors as well -->
+      <p id="formStatus" class="font-semibold hidden text-center p-3 rounded-md"></p>
+    </form>
+    
+    <!-- Contact Info (Moved inside the grid) -->
+    <div class="space-y-6">
+        <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Contact Details</h3>
+            <p class="text-lg text-gray-600">
+                <strong>Email:</strong> <a href="mailto:fadgroupoffical@gmail.com" class="text-primary-600 hover:underline">fadgroupoffical@gmail.com</a>
+            </p>
+            <p class="text-lg text-gray-600">
+                <strong>Phone:</strong> +91 7012034745
+            </p>
+            <p class="text-lg text-gray-600">
+                <strong>Location:</strong> Perumbaipadi, Paluvai
+            </p>
+        </div>
+        <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Follow Us</h3>
+            <div class="flex space-x-6">
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/fad.group_/" class="text-gray-500 hover:text-primary-600 transition-colors" target="_blank" aria-label="Instagram">
+                  <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm4.75-.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5z"/>
+                  </svg>
+                </a>
+                <!-- Google Maps -->
+                <a href="https://www.google.com/maps/place/FAD+GROUP+CLUB/@10.573846,76.0461887,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba793004dbc477d:0xefd20ef81ac7f1c3!8m2!3d10.5738408!4d76.0510543!16s%2Fg%2F11yl3r_z4l?entry=ttu" 
+                   class="text-gray-500 hover:text-primary-600 transition-colors" 
+                   target="_blank" 
+                   aria-label="Google Maps Location">
+                  <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
+                  </svg>
+                  <span class="sr-only">Google Maps</span>
+                </a>
+            </div>
+        </div>
+        <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Location</h3>
+            <div class="rounded-lg shadow-lg overflow-hidden">
+                 <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3922.067817452654!2d76.0484793748016!3d10.573846062772594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba793004dbc477d%3A0xefd20ef81ac7f1c3!2sFAD%20GROUP%20CLUB!5e0!3m2!1sen!2sin!4v1730592652077!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="300" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+<footer class="bg-dark-900 text-gray-400 py-16 px-4 sm:px-6 lg:px-8">
+  <div class="container mx-auto text-center">
+    
+    <!-- FAD Logo -->
+   <div class="flex justify-center mb-8">
+     <!-- CORRECTION: Added onerror placeholder -->
+     <img src="images/logoo-removebg-preview.png" 
+          alt="FAD Group Logo" 
+          class="w-48 h-48 object-contain"
+          onerror="this.alt='FAD Group Logo'; this.src='https://placehold.co/200x200/111827/FFFFFF?text=FAD+Logo&font=inter';">
+   </div>
+
+    <div class="flex justify-center space-x-6 lg:space-x-8 my-8">
+      <a href="#about" class="hover:text-white transition-colors">About</a>
+      <a href="#events" class="hover:text-white transition-colors">Events</a>
+      <a href="#members" class="hover:text-white transition-colors">Members</a>
+      <a href="#join" class="hover:text-white transition-colors">Join</a>
+    </div>
+
+    <div class="flex justify-center space-x-6 mb-8">
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/fad.group_/" class="text-gray-400 hover:text-white" target="_blank" aria-label="Instagram">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm4.75-.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5z"/>
+        </svg>
+      </a>
+
+      <!-- Google Maps -->
+      <a href="https://www.google.com/maps/place/FAD+GROUP+CLUB/@10.573846,76.0461887,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba793004dbc477d:0xefd20ef81ac7f1c3!8m2!3d10.5738408!4d76.0510543!16s%2Fg%2F11yl3r_z4l?entry=ttu"
+         class="text-gray-400 hover:text-white"
+         target="_blank"
+         aria-label="Google Maps Location">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
+        </svg>
+      </a>
+    </div>
+
+    <p class="text-gray-500 text-sm">
+      &copy; 2025 FAD GROUP. All Rights Reserved.
+    </p>
+  </div>
+</footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Mobile Menu Logic ---
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.nav-link-mobile');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+
+            // Toggle mobile menu
+            menuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                // CORRECTION: Toggle icons
+                menuIconOpen.classList.toggle('hidden');
+                menuIconClose.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                    // CORRECTION: Reset icons
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                });
+            });
+
+            // --- Active Nav Link Highlighting on Scroll ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        
+                        // Remove active class from all desktop links
+                        navLinks.forEach(link => {
+                            link.classList.remove('nav-link-active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('nav-link-active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                rootMargin: '-20% 0px -80% 0px', // Triggers when section is in the middle 60% of viewport
+                threshold: 0
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Set home as active by default
+            const homeLink = document.querySelector('a[href="#home"].nav-link');
+            if(homeLink) homeLink.classList.add('nav-link-active');
+
+
+            // --- Team Filter Logic ---
+            const allBtn = document.getElementById('all-btn');
+            const execBtn = document.getElementById('exec-btn');
+            const membersBtn = document.getElementById('members-btn');
+            
+            const execGrid = document.getElementById('executive-grid');
+            const membersGrid = document.getElementById('members-grid');
+
+            const teamButtons = [allBtn, execBtn, membersBtn];
+
+            // Helper function to update button styles (Team)
+            function updateTeamButtonStyles(activeButton) {
+                teamButtons.forEach(button => {
+                    if (button === activeButton) {
+                        button.classList.add('filter-btn-active');
+                        button.classList.remove('filter-btn-inactive');
+                    } else {
+                        button.classList.add('filter-btn-inactive');
+                        button.classList.remove('filter-btn-active');
+                    }
+                });
+            }
+
+            // All Button Click
+            allBtn.addEventListener('click', function() {
+                execGrid.style.display = 'grid'; // Show executive grid
+                membersGrid.style.display = 'grid'; // Show members grid
+                updateTeamButtonStyles(allBtn);
+            });
+
+            // Executive Button Click
+            execBtn.addEventListener('click', function() {
+                execGrid.style.display = 'grid'; // Show executive grid
+                membersGrid.style.display = 'none'; // Hide members grid
+                updateTeamButtonStyles(execBtn);
+            });
+
+            // Members Button Click
+            membersBtn.addEventListener('click', function() {
+                execGrid.style.display = 'none'; // Hide executive grid
+                membersGrid.style.display = 'grid'; // Show members grid
+                updateTeamButtonStyles(membersBtn);
+            });
+
+            // Set initial state (show "All")
+            allBtn.click();
+            // --- End of Team Filter Logic ---
+
+
+            // --- NEW: Event Filter Logic ---
+            const upcomingBtn = document.getElementById('upcoming-btn');
+            const pastBtn = document.getElementById('past-btn');
+            const eventCards = document.querySelectorAll('#events-grid [data-category]');
+            const eventButtons = [upcomingBtn, pastBtn];
+
+            // Helper function to update button styles (Events)
+            function updateEventButtonStyles(activeButton) {
+                eventButtons.forEach(button => {
+                    if (button === activeButton) {
+                        button.classList.add('event-btn-active');
+                        button.classList.remove('event-btn-inactive');
+                    } else {
+                        button.classList.add('event-btn-inactive');
+                        button.classList.remove('event-btn-active');
+                    }
+                });
+            }
+
+            // Function to filter events
+            function filterEvents(category) {
+                eventCards.forEach(card => {
+                    if (card.dataset.category === category) {
+                        card.style.display = 'flex'; // Show matching cards
+                    } else {
+                        card.style.display = 'none'; // Hide non-matching cards
+                    }
+                });
+            }
+
+            // Upcoming Button Click
+            upcomingBtn.addEventListener('click', function() {
+                filterEvents('upcoming');
+                updateEventButtonStyles(upcomingBtn);
+            });
+
+            // Past Button Click
+            pastBtn.addEventListener('click', function() {
+                filterEvents('past');
+                updateEventButtonStyles(pastBtn);
+            });
+
+            // Set initial state (show "Upcoming")
+            upcomingBtn.click();
+            // --- End of Event Filter Logic ---
+        });
+
+
+        // --- Formspree Logic ---
+        // CORRECTION: Replaced all `alert()` with DOM manipulation for status messages
+        const form = document.getElementById("contactForm");
+        const status = document.getElementById("formStatus");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = new FormData(form);
+            
+            // Clear previous status
+            status.classList.add("hidden");
+            status.textContent = "";
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { Accept: "application/json" }
+                });
+                
+                if (response.ok) {
+                    // Success
+                    status.textContent = "✅ Message sent successfully!";
+                    status.classList.remove("hidden", "bg-red-100", "text-red-700");
+                    status.classList.add("bg-green-100", "text-green-700");
+                    form.reset();
+                } else {
+                    // Formspree server error
+                    status.textContent = "❌ Something went wrong. Please try again.";
+                    status.classList.remove("hidden", "bg-green-100", "text-green-700");
+                    status.classList.add("bg-red-100", "text-red-700");
+                }
+            } catch (error) {
+                // Network error
+                status.textContent = "⚠️ Network error. Please check your connection.";
+                status.classList.remove("hidden", "bg-green-100", "text-green-700");
+                status.classList.add("bg-red-100", "text-red-700");
+            }
+
+            // Hide status message after 5 seconds
+            setTimeout(() => status.classList.add("hidden"), 5000);
+        });
+    </script>
+
+</body>
+</html>
